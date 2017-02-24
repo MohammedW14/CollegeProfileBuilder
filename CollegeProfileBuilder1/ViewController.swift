@@ -21,9 +21,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         
-        myCollegeObject.append(CollegeClass(n: "Northwestern University", l: "Evanston, IL", p: "21000", i:UIImage(named: "NU")!))
-        myCollegeObject.append(CollegeClass(n: "Johns Hopkins University", l: "Baltimore, MD", p: "22000", i:UIImage(named: "JHU")!))
-        myCollegeObject.append(CollegeClass(n: "University of Illinois at Chicago", l: "Chicago, IL", p: "30000", i:UIImage(named: "UIC")!))
+        myCollegeObject.append(CollegeClass(n: "Northwestern University", l: "Evanston, IL", p: "21000", i:UIImage(named: "NU")!, w: "http://www.northwestern.edu/"))
+        myCollegeObject.append(CollegeClass(n: "Johns Hopkins University", l: "Baltimore, MD", p: "22000", i:UIImage(named: "JHU")!, w: "https://www.jhu.edu/"))
+        myCollegeObject.append(CollegeClass(n: "University of Illinois at Chicago", l: "Chicago, IL", p: "30000", i:UIImage(named: "UIC")!, w: "http://www.uic.edu/"))
     }
 
     @IBAction func addButton(_ sender: UIBarButtonItem) {
@@ -38,6 +38,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             locationTextField.placeholder = "Add Location of college..."
         }
         
+        alert.addTextField { (websiteTextField) in
+            websiteTextField.placeholder = "Add Website of college..."
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alert.addAction(cancelAction)
@@ -46,7 +50,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let nameTextField = alert.textFields?[0]
             let locationTextField = alert.textFields?[1]
-            self.myCollegeObject.append((CollegeClass(n: (nameTextField?.text!)!, l: (locationTextField?.text!)!)))
+            let websiteTextField = alert.textFields?[2]
+            self.myCollegeObject.append((CollegeClass(n: (nameTextField?.text!)!, l: (locationTextField?.text!)!, w: (websiteTextField?.text)!)))
             self.tableView.reloadData()
         }
         
